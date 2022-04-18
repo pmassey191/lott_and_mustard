@@ -10,9 +10,8 @@ state_treated <- crime_data%>%
   summarise(cnt = sum(shalll))
 
 crime_data <- inner_join(crime_data,state_treated)  %>% 
-  mutate(treat_date = ifelse(cnt<16 & cnt >0,1992-cnt,0))
+  mutate(treat_date = ifelse(cnt >0,1993-cnt,0))
 
-filter(state_treated, cnt == 0)
 
 states_1977 = c("Alabama, Connecticut, New Hampshire, North Dakota, South Dakota, Vermont, Washington")
 states_1981 = c("Indiana")
@@ -55,68 +54,76 @@ twfe_lvio <- feols(lvio ~ shalll + rpcpi + rpcim + rpcui + density + aovio + pop
                       ppwm2029 + ppbm2029 + ppnm2029 + ppwf2029 + ppbf2029 + ppnf2029 +
                       ppwm3039 + ppbm3039 + ppnm3039 + ppwf3039 + ppbf3039 + ppnf3039 +
                       ppwm4049 + ppbm4049 + ppnm4049 + ppwf4049 + ppbf4049 + ppnf4049 + 
-                      ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, data = crime_data,vcov = "HC1")
+                      ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year,
+                   data = crime_data, vcov = ~state+year)
+vcov(twfe_lvio)
 
 twfe_lmur <- feols(lmur ~ shalll + rpcpi + rpcim + rpcui + density + aomur + popstate + 
                  ppwm1019 + ppbm1019 + ppnm1019 + ppwf1019 + ppbf1019 + ppnf1019 +
                  ppwm2029 + ppbm2029 + ppnm2029 + ppwf2029 + ppbf2029 + ppnf2029 +
                  ppwm3039 + ppbm3039 + ppnm3039 + ppwf3039 + ppbf3039 + ppnf3039 +
                  ppwm4049 + ppbm4049 + ppnm4049 + ppwf4049 + ppbf4049 + ppnf4049 + 
-                 ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, data = crime_data, vcov = "HC1")
+                 ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, 
+                 data = crime_data, vcov = ~state+year)
 
 twfe_lrap <- feols(lrap ~ shalll + rpcpi + rpcim + rpcui + density + aorap + popstate + 
                       ppwm1019 + ppbm1019 + ppnm1019 + ppwf1019 + ppbf1019 + ppnf1019 +
                       ppwm2029 + ppbm2029 + ppnm2029 + ppwf2029 + ppbf2029 + ppnf2029 +
                       ppwm3039 + ppbm3039 + ppnm3039 + ppwf3039 + ppbf3039 + ppnf3039 +
                       ppwm4049 + ppbm4049 + ppnm4049 + ppwf4049 + ppbf4049 + ppnf4049 + 
-                      ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, data = crime_data, vcov = "HC1")
+                      ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year,
+                   data = crime_data, vcov = ~state+year)
 
 twfe_laga <- feols(laga ~ shalll + rpcpi + rpcim + rpcui + density + aoaga + popstate + 
                       ppwm1019 + ppbm1019 + ppnm1019 + ppwf1019 + ppbf1019 + ppnf1019 +
                       ppwm2029 + ppbm2029 + ppnm2029 + ppwf2029 + ppbf2029 + ppnf2029 +
                       ppwm3039 + ppbm3039 + ppnm3039 + ppwf3039 + ppbf3039 + ppnf3039 +
                       ppwm4049 + ppbm4049 + ppnm4049 + ppwf4049 + ppbf4049 + ppnf4049 + 
-                      ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, data = crime_data, vcov = "HC1")
+                      ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year,
+                   data = crime_data, vcov = ~state+year)
 
 twfe_lrob <- feols(lrob ~ shalll + rpcpi + rpcim + rpcui + density + aorob + popstate + 
                      ppwm1019 + ppbm1019 + ppnm1019 + ppwf1019 + ppbf1019 + ppnf1019 +
                      ppwm2029 + ppbm2029 + ppnm2029 + ppwf2029 + ppbf2029 + ppnf2029 +
                      ppwm3039 + ppbm3039 + ppnm3039 + ppwf3039 + ppbf3039 + ppnf3039 +
                      ppwm4049 + ppbm4049 + ppnm4049 + ppwf4049 + ppbf4049 + ppnf4049 + 
-                     ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, data = crime_data, vcov = "HC1")
+                     ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year,
+                   data = crime_data, vcov = ~state+year)
 
 twfe_lpro <- feols(lpro ~ shalll + rpcpi + rpcim + rpcui + density + aopro + popstate + 
                      ppwm1019 + ppbm1019 + ppnm1019 + ppwf1019 + ppbf1019 + ppnf1019 +
                      ppwm2029 + ppbm2029 + ppnm2029 + ppwf2029 + ppbf2029 + ppnf2029 +
                      ppwm3039 + ppbm3039 + ppnm3039 + ppwf3039 + ppbf3039 + ppnf3039 +
                      ppwm4049 + ppbm4049 + ppnm4049 + ppwf4049 + ppbf4049 + ppnf4049 + 
-                     ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, data = crime_data, vcov = "HC1")
+                     ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year,
+                   data = crime_data, vcov = ~state+year)
 
 twfe_lbur <- feols(lbur ~ shalll + rpcpi + rpcim + rpcui + density + aobur + popstate + 
                      ppwm1019 + ppbm1019 + ppnm1019 + ppwf1019 + ppbf1019 + ppnf1019 +
                      ppwm2029 + ppbm2029 + ppnm2029 + ppwf2029 + ppbf2029 + ppnf2029 +
                      ppwm3039 + ppbm3039 + ppnm3039 + ppwf3039 + ppbf3039 + ppnf3039 +
                      ppwm4049 + ppbm4049 + ppnm4049 + ppwf4049 + ppbf4049 + ppnf4049 + 
-                     ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, data = crime_data, vcov = "HC1")
+                     ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, 
+                   data = crime_data, vcov = ~state+year)
 
 twfe_llar <- feols(llar ~ shalll + rpcpi + rpcim + rpcui + density + aolar + popstate + 
                      ppwm1019 + ppbm1019 + ppnm1019 + ppwf1019 + ppbf1019 + ppnf1019 +
                      ppwm2029 + ppbm2029 + ppnm2029 + ppwf2029 + ppbf2029 + ppnf2029 +
                      ppwm3039 + ppbm3039 + ppnm3039 + ppwf3039 + ppbf3039 + ppnf3039 +
                      ppwm4049 + ppbm4049 + ppnm4049 + ppwf4049 + ppbf4049 + ppnf4049 + 
-                     ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, data = crime_data, vcov = "HC1")
+                     ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, 
+                   data = crime_data, vcov = ~state+year)
 
 twfe_laut <- feols(laut ~ shalll + rpcpi + rpcim + rpcui + density + aoaut + popstate + 
                      ppwm1019 + ppbm1019 + ppnm1019 + ppwf1019 + ppbf1019 + ppnf1019 +
                      ppwm2029 + ppbm2029 + ppnm2029 + ppwf2029 + ppbf2029 + ppnf2029 +
                      ppwm3039 + ppbm3039 + ppnm3039 + ppwf3039 + ppbf3039 + ppnf3039 +
                      ppwm4049 + ppbm4049 + ppnm4049 + ppwf4049 + ppbf4049 + ppnf4049 + 
-                     ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, data = crime_data, vcov = "HC1")
-
-# ppwm65o + ppbm65o + ppnm65o + ppwf65o + 
-#   ppbf65o + ppnf65o
+                     ppwm5064 + ppbm5064 + ppnm5064 + ppwf5064 + ppbf5064 + ppnf5064 | state + year, 
+                   data = crime_data, vcov = ~state+year)
 
 
+summary(twfe_lmur)
 #bacon decomp
 
 bacon_decomp_lvio <- bacon(lvio~shalll, data = crime_data, id_var = "fipsstat", time_var = "year")
@@ -135,7 +142,7 @@ atts_lvio <- att_gt(yname = "lvio", # LHS variable
                     idname = "fipsstat", # id variable
                     gname = "treat_date", # first treatment period variable
                     data = crime_data, # data
-                    xformla = ~1, # no covariates
+                    xformla = ~1, #no covariates
                     #xformla = ~ l_police, # with covariates
                     est_method = "dr", # "dr" is doubly robust. "ipw" is inverse probability weighting. "reg" is regression
                     control_group = "notyettreated", # set the comparison group which is either "nevertreated" or "notyettreated" 
@@ -189,6 +196,7 @@ atts_laga <- att_gt(yname = "laga", # LHS variable
                     print_details = FALSE, # if TRUE, print detailed results
                     clustervars = "fipsstat", # cluster level
                     panel = TRUE) 
+
 atts_lrob <- att_gt(yname = "lrob", # LHS variable
                     tname = "year", # time variable
                     idname = "fipsstat", # id variable
@@ -266,6 +274,10 @@ atts_laut <- att_gt(yname = "laut", # LHS variable
 
 
 
-robust_se <- list(sqrt(diag(vcovHC(model_lmur, type = "HC1"))))
+#Sun and Abraham
+
+lvio_sa <- feols(lmur ~ sunab(treat_date, year)|fipsstat + year, data = crime_data, 
+                 vcov = ~fipsstat+year)
+iplot(lvio_sa,ref.line = -1)
 
 
