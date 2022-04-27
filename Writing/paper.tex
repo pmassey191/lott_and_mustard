@@ -32,8 +32,10 @@
 \maketitle
 
 \section*{Introduction}
-Deterring crime is a topic the comes across nearly all political debates, with each party having its own solution to the problem. This issue is extremely important to Americans, which is why it is brought up by politicians constantly. People have desire to feel safe and secure in their neighborhoods and homes. One policy initiative that has been proposed and passed by many state legislatures across the United States, is a right to carry law. A passage of this law would give the citizens of that state the ability to carry concealed weapons. The logic being that criminals would be less likely to commit a crime 
+Deterring crime is a topic the comes across nearly all political debates, with each party having its own solution to the problem. This issue is extremely important to Americans, which is why it is brought up by politicians constantly. People have desire to feel safe and secure in their neighborhoods and homes. One policy initiative that has been proposed and passed by many state legislatures across the United States, is a right to carry law. A passage of this law would give the citizens of that state the ability to carry concealed weapons. The logic being that criminals would be less likely to commit a crime if they reasonably believed an individual may have a gun. In their 1997 paper entitled "Crime, Deterrence, and Right-to-Carry Concealed Handguns, by Lott and Mustard, the authors sought to answer the question of how right to carry laws affected crime. In this paper I am seeking to replicate their results using modern difference-in-differences research designs that are robust to the differential timing issue that Lott and Mustard faced. 
 \section*{Background and Economic Theory}
+In the original Lott and Mustard study, the authors were looking to find the impact of right to carry laws on crime in the United States. 
+
 \begin{table}[h]
 
 \caption{\label{tab:rollout}State Rollout of Concealed Carry}
@@ -205,6 +207,52 @@ Real per capital income data: &&&&&&&&&\\
 \end{landscape}
 \restoregeometry
 \subsection*{Bacon Decomposition}
+\begin{table}[h]
+\centering
+  \caption{Bacon Decomposition} 
+  \label{tab:bacon}
+\begin{tabular}[t]{lrrl}
+\toprule
+ & Weight & Average Estimate\\
+\midrule
+Violent Crime\\
+\hspace{3mm}Earlier vs Later Treated & 0.0683810 & 0.07561\\
+\hspace{3mm}Later vs Earlier Treated & 0.0233921 & -0.07645\\
+\midrule
+Murder\\
+\hspace{3mm}Earlier vs Later Treated & 0.0683810 & 0.07974\\
+\hspace{3mm}Later vs Earlier Treated & 0.0233921 & 0.00179\\
+\midrule
+Rape\\
+\hspace{3mm}Earlier vs Later Treated & 0.0683810 & -0.03864\\
+\hspace{3mm}Later vs Earlier Treated & 0.0233921 & -0.08243\\
+\midrule
+Aggravated Assault\\
+\hspace{3mm}Earlier vs Later Treated & 0.0683810 & 0.11645\\
+\hspace{3mm}Later vs Earlier Treated & 0.0233921 & -0.14717\\
+\midrule
+Robbery\\
+\hspace{3mm}Earlier vs Later Treated & 0.0683810 & 0.10775\\
+\hspace{3mm}Later vs Earlier Treated & 0.0233921 & 0.08955\\
+\midrule
+Property Crime\\
+\hspace{3mm}Earlier vs Later Treated & 0.0683810 & -0.01052\\
+\hspace{3mm}Later vs Earlier Treated & 0.0233921 & 0.00644\\
+\midrule
+Burglary\\
+\hspace{3mm}Earlier vs Later Treated & 0.0683810 & -0.03397\\
+\hspace{3mm}Later vs Earlier Treated & 0.0233921 & -0.05563\\
+\midrule
+Larceny\\
+\hspace{3mm}Earlier vs Later Treated & 0.0683810 & -0.00608\\
+\hspace{3mm}Later vs Earlier Treated & 0.0233921 & 0.02077\\
+\midrule
+Auto Theft\\
+\hspace{3mm}Earlier vs Later Treated & 0.0683810 & 0.08313\\
+\hspace{3mm}Later vs Earlier Treated & 0.0233921 & 0.08680\\
+\bottomrule
+\end{tabular}
+\end{table}
 \subsection*{Callaway and Sant'anna}
 \subsection*{Sun and Abraham Event Study}
 \section*{Conclusion} 

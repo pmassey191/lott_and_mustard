@@ -1,6 +1,4 @@
-library(fixest)
-library(bacondecomp)
-library(did)
+library(vtable)
 
 crime_data <- read_dta(here("Data/UpdatedStateLevelData-2010.dta")) %>% 
   filter(year>=1977 & year <= 1992)
@@ -142,42 +140,147 @@ bacon_decomp_laut <- bacon(laut~shalll, data = crime_data, id_var = "fipsstat", 
   filter(type == "Earlier vs Later Treated"| type == "Later vs Earlier Treated")
 
 
-ggplot(bacon_decomp_lvio, aes(x = weight, y = estimate, color = factor(type)))+
-  labs(x = "Weight", y = "Estimate", color = "Type")+
+
+sum_vio <- aggregate(weight ~ type,
+                    data = bacon_decomp_lvio,
+                    FUN = sum
+)
+sum_vio$avg_est <- c(by(
+  bacon_decomp_lvio, bacon_decomp_lvio$type,
+  function(x) round(weighted.mean(x$estimate, x$weight), 5)
+))
+
+sum_mur <- aggregate(weight ~ type,
+                     data = bacon_decomp_lmur,
+                     FUN = sum
+)
+sum_mur$avg_est <- c(by(
+  bacon_decomp_lmur, bacon_decomp_lmur$type,
+  function(x) round(weighted.mean(x$estimate, x$weight), 5)
+))
+
+sum_rap <- aggregate(weight ~ type,
+                     data = bacon_decomp_lrap,
+                     FUN = sum
+)
+sum_rap$avg_est <- c(by(
+  bacon_decomp_lrap, bacon_decomp_lrap$type,
+  function(x) round(weighted.mean(x$estimate, x$weight), 5)
+))
+sum_aga <- aggregate(weight ~ type,
+                     data = bacon_decomp_laga,
+                     FUN = sum
+)
+sum_aga$avg_est <- c(by(
+  bacon_decomp_laga, bacon_decomp_laga$type,
+  function(x) round(weighted.mean(x$estimate, x$weight), 5)
+))
+sum_rob <- aggregate(weight ~ type,
+                     data = bacon_decomp_lrob,
+                     FUN = sum
+)
+sum_rob$avg_est <- c(by(
+  bacon_decomp_lrob, bacon_decomp_lrob$type,
+  function(x) round(weighted.mean(x$estimate, x$weight), 5)
+))
+sum_pro <- aggregate(weight ~ type,
+                     data = bacon_decomp_lpro,
+                     FUN = sum
+)
+sum_pro$avg_est <- c(by(
+  bacon_decomp_lpro, bacon_decomp_lpro$type,
+  function(x) round(weighted.mean(x$estimate, x$weight), 5)
+))
+sum_bur <- aggregate(weight ~ type,
+                     data = bacon_decomp_lbur,
+                     FUN = sum
+)
+sum_bur$avg_est <- c(by(
+  bacon_decomp_lbur, bacon_decomp_lbur$type,
+  function(x) round(weighted.mean(x$estimate, x$weight), 5)
+))
+sum_lar <- aggregate(weight ~ type,
+                     data = bacon_decomp_llar,
+                     FUN = sum
+)
+sum_lar$avg_est <- c(by(
+  bacon_decomp_llar, bacon_decomp_llar$type,
+  function(x) round(weighted.mean(x$estimate, x$weight), 5)
+))
+sum_aut <- aggregate(weight ~ type,
+                     data = bacon_decomp_laut,
+                     FUN = sum
+)
+sum_aut$avg_est <- c(by(
+  bacon_decomp_laut, bacon_decomp_laut$type,
+  function(x) round(weighted.mean(x$estimate, x$weight), 5)
+))
+
+
+df <- rbind(sum_vio,sum_mur,sum_rap,sum_aga,sum_rob,sum_pro,sum_bur,sum_lar,sum_aut)
+model <- rep(c("Violent Crime","Murder","Rape","Aggrevated Assualt","Robbery","Property Crime","Burglary","Larceny","Auto Theft"),each = 2)
+df$model <- model
+
+kbl(df, caption = "test",booktabs = TRUE) %>% 
+  kable_styling() %>% 
+  pack_rows(group_label = ,1,2)
+
+
+
+kbl(df,booktabs = TRUE,format= "latex",caption = "Bacon Decomposition")
+
+
+
+
+
+plot_violent_cs <- ggplot(bacon_decomp_lvio, aes(x = weight, y = estimate, color = factor(type)))+
+                  labs(x = "Weight", y = "Estimate", color = "Type",title = "Goodman-Bacon Decomposition: Violent Crimes")+
+                   geom_point()+
+                  theme_minimal()
+plot_mur_cs <- ggplot(bacon_decomp_lmur, aes(x = weight, y = estimate, color = factor(type)))+
+  labs(x = "Weight", y = "Estimate", color = "Type",title = "Goodman-Bacon Decomposition: Murder ")+
   geom_point()+
   theme_minimal()
-ggplot(bacon_decomp_lmur, aes(x = weight, y = estimate, color = factor(type)))+
-  labs(x = "Weight", y = "Estimate", color = "Type")+
+plot_rape_cs<- ggplot(bacon_decomp_lrap, aes(x = weight, y = estimate, color = factor(type)))+
+  labs(x = "Weight", y = "Estimate", color = "Type",title = "Goodman-Bacon Decomposition: Rape ")+
   geom_point()+
   theme_minimal()
-ggplot(bacon_decomp_lrap, aes(x = weight, y = estimate, color = factor(type)))+
-  labs(x = "Weight", y = "Estimate", color = "Type")+
+plot_aga_cs <- ggplot(bacon_decomp_laga, aes(x = weight, y = estimate, color = factor(type)))+
+  labs(x = "Weight", y = "Estimate", color = "Type",title = "Goodman-Bacon Decomposition: Aggravated Assault")+
   geom_point()+
   theme_minimal()
-ggplot(bacon_decomp_laga, aes(x = weight, y = estimate, color = factor(type)))+
-  labs(x = "Weight", y = "Estimate", color = "Type")+
+plot_rob_cs <- ggplot(bacon_decomp_lrob, aes(x = weight, y = estimate, color = factor(type)))+
+  labs(x = "Weight", y = "Estimate", color = "Type",title = "Goodman-Bacon Decomposition: Robbery")+
   geom_point()+
   theme_minimal()
-ggplot(bacon_decomp_lrob, aes(x = weight, y = estimate, color = factor(type)))+
-  labs(x = "Weight", y = "Estimate", color = "Type")+
+plot_pro_cs <- ggplot(bacon_decomp_lpro, aes(x = weight, y = estimate, color = factor(type)))+
+  labs(x = "Weight", y = "Estimate", color = "Type",title = "Goodman-Bacon Decomposition: Property Crime")+
   geom_point()+
   theme_minimal()
-ggplot(bacon_decomp_lpro, aes(x = weight, y = estimate, color = factor(type)))+
-  labs(x = "Weight", y = "Estimate", color = "Type")+
+plot_bur_cs <- ggplot(bacon_decomp_lbur, aes(x = weight, y = estimate, color = factor(type)))+
+  labs(x = "Weight", y = "Estimate", color = "Type", title = "Goodman-Bacon Decomposition: Burglary")+
   geom_point()+
   theme_minimal()
-ggplot(bacon_decomp_lbur, aes(x = weight, y = estimate, color = factor(type)))+
-  labs(x = "Weight", y = "Estimate", color = "Type")+
+plot_lar_cs <- ggplot(bacon_decomp_llar, aes(x = weight, y = estimate, color = factor(type)))+
+  labs(x = "Weight", y = "Estimate", color = "Type",title = "Goodman-Bacon Decomposition: Larceny")+
   geom_point()+
   theme_minimal()
-ggplot(bacon_decomp_llar, aes(x = weight, y = estimate, color = factor(type)))+
-  labs(x = "Weight", y = "Estimate", color = "Type")+
+plot_aut_cs <- ggplot(bacon_decomp_laut, aes(x = weight, y = estimate, color = factor(type)))+
+  labs(x = "Weight", y = "Estimate", color = "Type",title = "Goodman-Bacon Decomposition: Auto Theft")+
   geom_point()+
   theme_minimal()
-ggplot(bacon_decomp_laut, aes(x = weight, y = estimate, color = factor(type)))+
-  labs(x = "Weight", y = "Estimate", color = "Type")+
-  geom_point()+
-  theme_minimal()
+
+ggsave(here("figures/vio_cs.jpg"),plot_violent_cs)
+ggsave(here("figures/mur_cs.jpg"),plot_mur_cs)
+ggsave(here("figures/aga_cs.jpg"),plot_aga_cs)
+ggsave(here("figures/aut_cs.jpg"),plot_aut_cs)
+ggsave(here("figures/bur_cs.jpg"),plot_bur_cs)
+ggsave(here("figures/lar_cs.jpg"),plot_lar_cs)
+ggsave(here("figures/pro_cs.jpg"),plot_pro_cs)
+ggsave(here("figures/rape_cs.jpg"),plot_rape_cs)
+ggsave(here("figures/rob_cs.jpg"),plot_rob_cs)
+
+
 
 #carlos santana
 atts_lvio <- att_gt(yname = "lvio", # LHS variable
@@ -185,7 +288,7 @@ atts_lvio <- att_gt(yname = "lvio", # LHS variable
                     idname = "fipsstat", # id variable
                     gname = "treat_date", # first treatment period variable
                     data = crime_data, # data
-                    xformla = ~aovio, #no covariates
+                    xformla = ~NULL, #no covariates
                     #xformla = ~ l_police, # with covariates
                     est_method = "dr", # "dr" is doubly robust. "ipw" is inverse probability weighting. "reg" is regression
                     control_group = "notyettreated", # set the comparison group which is either "nevertreated" or "notyettreated" 
@@ -201,7 +304,7 @@ atts_lmur <- att_gt(yname = "lmur", # LHS variable
                     idname = "fipsstat", # id variable
                     gname = "treat_date", # first treatment period variable
                     data = crime_data, # data
-                    xformla = ~aomur, # no covariates
+                    xformla = ~NULL, # no covariates
                     #xformla = ~ l_police, # with covariates
                     est_method = "dr", # "dr" is doubly robust. "ipw" is inverse probability weighting. "reg" is regression
                     control_group = "notyettreated", # set the comparison group which is either "nevertreated" or "notyettreated" 
@@ -216,7 +319,7 @@ atts_lrap <- att_gt(yname = "lrap", # LHS variable
                     idname = "fipsstat", # id variable
                     gname = "treat_date", # first treatment period variable
                     data = crime_data, # data
-                    xformla = ~aorap, # no covariates
+                    xformla = ~NULL, # no covariates
                     #xformla = ~ l_police, # with covariates
                     est_method = "dr", # "dr" is doubly robust. "ipw" is inverse probability weighting. "reg" is regression
                     control_group = "notyettreated", # set the comparison group which is either "nevertreated" or "notyettreated" 
@@ -231,7 +334,7 @@ atts_laga <- att_gt(yname = "laga", # LHS variable
                     idname = "fipsstat", # id variable
                     gname = "treat_date", # first treatment period variable
                     data = crime_data, # data
-                    xformla = ~aoaga, # no covariates
+                    xformla = ~NULL, # no covariates
                     #xformla = ~ l_police, # with covariates
                     est_method = "dr", # "dr" is doubly robust. "ipw" is inverse probability weighting. "reg" is regression
                     control_group = "notyettreated", # set the comparison group which is either "nevertreated" or "notyettreated" 
@@ -246,7 +349,7 @@ atts_lrob <- att_gt(yname = "lrob", # LHS variable
                     idname = "fipsstat", # id variable
                     gname = "treat_date", # first treatment period variable
                     data = crime_data, # data
-                    xformla = ~aorob, # no covariates
+                    xformla = ~NULL, # no covariates
                     #xformla = ~ l_police, # with covariates
                     est_method = "dr", # "dr" is doubly robust. "ipw" is inverse probability weighting. "reg" is regression
                     control_group = "notyettreated", # set the comparison group which is either "nevertreated" or "notyettreated" 
@@ -261,7 +364,7 @@ atts_lpro <- att_gt(yname = "lpro", # LHS variable
                     idname = "fipsstat", # id variable
                     gname = "treat_date", # first treatment period variable
                     data = crime_data, # data
-                    xformla = ~aopro, # no covariates
+                    xformla = ~NULL, # no covariates
                     #xformla = ~ l_police, # with covariates
                     est_method = "dr", # "dr" is doubly robust. "ipw" is inverse probability weighting. "reg" is regression
                     control_group = "notyettreated", # set the comparison group which is either "nevertreated" or "notyettreated" 
@@ -276,7 +379,7 @@ atts_lbur <- att_gt(yname = "lbur", # LHS variable
                     idname = "fipsstat", # id variable
                     gname = "treat_date", # first treatment period variable
                     data = crime_data, # data
-                    xformla = ~aobur, # no covariates
+                    xformla = ~NULL, # no covariates
                     #xformla = ~ l_police, # with covariates
                     est_method = "dr", # "dr" is doubly robust. "ipw" is inverse probability weighting. "reg" is regression
                     control_group = "notyettreated", # set the comparison group which is either "nevertreated" or "notyettreated" 
@@ -291,7 +394,7 @@ atts_llar <- att_gt(yname = "llar", # LHS variable
                 idname = "fipsstat", # id variable
                 gname = "treat_date", # first treatment period variable
                 data = crime_data, # data
-                xformla = ~aolar, # no covariates
+                xformla = ~NULL, # no covariates
                 #xformla = ~ l_police, # with covariates
                 est_method = "dr", # "dr" is doubly robust. "ipw" is inverse probability weighting. "reg" is regression
                 control_group = "notyettreated", # set the comparison group which is either "nevertreated" or "notyettreated" 
@@ -306,7 +409,7 @@ atts_laut <- att_gt(yname = "laut", # LHS variable
                     idname = "fipsstat", # id variable
                     gname = "treat_date", # first treatment period variable
                     data = crime_data, # data
-                    xformla = ~aoaut, # no covariates
+                    xformla = ~NULL, # no covariates
                     #xformla = ~ l_police, # with covariates
                     est_method = "dr", # "dr" is doubly robust. "ipw" is inverse probability weighting. "reg" is regression
                     control_group = "notyettreated", # set the comparison group which is either "nevertreated" or "notyettreated" 

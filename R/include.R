@@ -24,7 +24,10 @@ librarian::shelf(
   gganimate,
   gapminder,
   stargazer,
-  snakecase
+  snakecase,
+  did,
+  fixest,
+  bacondecomp
 )
 
 # tell here where we are so we can use it elsewhere

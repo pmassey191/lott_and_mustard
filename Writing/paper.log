@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2022.1.24)  24 APR 2022 18:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2022.1.24)  27 APR 2022 01:38
 entering extended mode
 **./paper.tex
 (paper.tex
@@ -520,6 +520,9 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 [1
 
 {C:/Users/Patrick/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2]
@@ -556,7 +559,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 
-Overfull \hbox (3.87863pt too wide) in alignment at lines 106--204
+Overfull \hbox (3.87863pt too wide) in alignment at lines 108--206
  [] [] [] [] [] [] [] [] [] [] 
  []
 
@@ -567,17 +570,20 @@ Overfull \hbox (3.87863pt too wide) in alignment at lines 106--204
 
 
 ] (paper.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 10679 strings out of 478927
- 156292 string characters out of 2851587
- 559503 words of memory out of 3000000
- 28347 multiletter control sequences out of 15000+600000
+ 10681 strings out of 478927
+ 156310 string characters out of 2851587
+ 559543 words of memory out of 3000000
+ 28348 multiletter control sequences out of 15000+600000
  411334 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,9n,66p,514b,451s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,9n,66p,1088b,451s stack positions out of 5000i,500n,10000p,200000b,80000s
 <C:/Users/Patrick/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
 m/cmbx12.pfb><C:/Users/Patrick/AppData/Local/Programs/MiKTeX/fonts/type1/public
 /amsfonts/cm/cmmi7.pfb><C:/Users/Patrick/AppData/Local/Programs/MiKTeX/fonts/ty
@@ -590,9 +596,9 @@ s/Patrick/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy5.pf
 b><C:/Users/Patrick/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
 m/cmsy7.pfb><C:/Users/Patrick/AppData/Local/Programs/MiKTeX/fonts/type1/public/
 amsfonts/cm/cmti7.pfb>
-Output written on paper.pdf (6 pages, 144636 bytes).
+Output written on paper.pdf (6 pages, 147894 bytes).
 PDF statistics:
- 97 PDF objects out of 1000 (max. 8388607)
- 19 named destinations out of 1000 (max. 500000)
+ 98 PDF objects out of 1000 (max. 8388607)
+ 20 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
