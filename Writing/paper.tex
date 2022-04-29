@@ -36,7 +36,7 @@ Deterring crime is a topic the comes across nearly all political debates, with e
 \section*{Background and Economic Theory}
 In the original Lott and Mustard study, the authors were looking to find the impact of right to carry laws on crime in the United States. 
 
-\begin{table}[h]
+\begin{table}[H]
 
 \caption{\label{tab:rollout}State Rollout of Concealed Carry}
 \centering
@@ -57,7 +57,7 @@ Years & States\\
 \end{table}
 \section*{Data}
 
-\begin{table}[h] \centering 
+\begin{table}[H] \centering 
   \caption{National Sample Summary Statistics} 
   \label{tab:summary} 
 \begin{tabular}[t]{@{\extracolsep{5pt}}lccc}
@@ -99,8 +99,15 @@ Population per square mile & 816 & 355.97 & 1,408.25 \\
 \bottomrule
 \end{tabular} 
 \end{table} 
-\section*{Empirical Mode and Estimation}
+\section*{Empirical Model and Estimation}
 \subsection*{Two Way Fixed Effects}
+
+The two way fixed effects model estimated by LM is shown below in equation 1.
+
+\begin{equation}
+Y_{it} = \delta\text{SI}_{it} + \alpha_i + \theta_t + \varepsilon_{it}
+\end{equation}
+
 
 \newgeometry{margin = .5cm}
     \scriptsize
