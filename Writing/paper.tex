@@ -25,20 +25,19 @@
 }
 
 \author{Patrick Massey}
-\title{Mustard and Lott Replication}
-\date{05/06/2022}
+\title{Lott  and Mustard Replication}
+\date{05/04/2022}
 
 \begin{document}
 \maketitle
 
 \section*{Introduction}
-Deterring crime is a topic the comes across nearly all political debates, with each party having its own solution to the problem. This issue is extremely important to Americans, which is why it is brought up by politicians constantly. People have desire to feel safe and secure in their neighborhoods and homes. One policy initiative that has been proposed and passed by many state legislatures across the United States, is a right to carry law. A passage of this law would give the citizens of that state the ability to carry concealed weapons. The logic being that criminals would be less likely to commit a crime if they reasonably believed an individual may have a gun. In their 1997 paper entitled "Crime, Deterrence, and Right-to-Carry Concealed Handguns, by Lott and Mustard, the authors sought to answer the question of how right to carry laws affected crime. In this paper I am seeking to replicate their results using modern difference-in-differences research designs that are robust to the differential timing issue that Lott and Mustard faced. 
+Deterring crime is a topic the comes across nearly all political debates, with each party having its own solution to the problem. This issue is extremely important to Americans, which is why it is brought up by politicians constantly. People have desire to feel safe and secure in their neighborhoods and homes. One policy initiative that has been proposed and passed by many state legislatures across the United States, is a right to carry law. A passage of this law would give the citizens of that state the ability to carry concealed weapons. The logic being that criminals would be less likely to commit a crime if they reasonably believed an individual may have a gun. In their 1997 paper entitled "Crime, Deterrence, and Right-to-Carry Concealed Handguns, by John Lott and David Mustard, the authors sought to answer the question of how right to carry laws affected crime. In this paper I am seeking to replicate their results using modern difference-in-differences research designs that are robust to the differential timing issue that Lott and Mustard(LM) faced. 
 \section*{Background and Economic Theory}
-In the original Lott and Mustard study, the authors were looking to find the impact of right to carry laws on crime in the United States. 
+In the original LM study, the authors were looking to find the impact of right to carry laws on crime in the United States. The conclusions from the LM study showed that right to carry laws were main factor causing crime to drop when compared to states that did not adopt a right to carry law. LM coded the laws according Cramer and Kopel's definition of a shall issue state. LM used a classic difference-in-differences two-way fixed effect model with county and year fixed effects. One of the issues with the two-way fixed effects model that LM used is the issue of variable timing of treatments. Over the course of the time period examined states rolled out right to carry laws at various points throughout the time period. I summarize the roll out of right to carry laws by year in Table \ref{tab:rollout} below.
 
-\begin{table}[h]
-
-\caption{\label{tab:rollout}State Rollout of Concealed Carry}
+\begin{table}[H]
+\caption{\label{tab:rollout}State Roll out of Concealed Carry}
 \centering
 \begin{tabular}[t]{ll}
 \toprule
@@ -55,12 +54,13 @@ Years & States\\
 \bottomrule
 \end{tabular}
 \end{table}
+A right to carry law is simply a law that allows
 \section*{Data}
-
-\begin{table}[h] \centering 
+In the original Lott and Mustard paper, the authors used county level crime data for their analysis. For this replication I will be using state level crime data for a variety of reasons. The main reason is that the gun laws passed were ultimately passed at the state level, and there are some concerns that county level data will have much more measurement error than at the state level. I provide a summary of the variables in Table \ref{tab:summary} below. In the table we can see the arrest rate broken down by the type of crime committed. The arrest rate is defined as the number of arrests per offense. I also show the crimes committed per 100,000 people broken down by crime type. 
+\begin{table}[H] \centering 
   \caption{National Sample Summary Statistics} 
   \label{tab:summary} 
-\begin{tabular}[t]{@{\extracolsep{5pt}}lccc}
+\begin{tabular}[h]{@{\extracolsep{5pt}}lccc}
 \toprule 
 %\\[-1.8ex]\hline 
 %\hline \\[-1.8ex] 
@@ -99,9 +99,10 @@ Population per square mile & 816 & 355.97 & 1,408.25 \\
 \bottomrule
 \end{tabular} 
 \end{table} 
+For each crime there are states for which we have no measurement of arrest rate during various years. This is reflected in Table \ref{tab:summary} under the number of observations column.
+
 \section*{Empirical Mode and Estimation}
 \subsection*{Two Way Fixed Effects}
-
 \newgeometry{margin = .5cm}
     \scriptsize
 \begin{landscape}
