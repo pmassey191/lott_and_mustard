@@ -448,19 +448,25 @@ lvio_sa <- feols(lvio ~ sunab(treat_date, year)|fipsstat + year, data = crime_da
                  vcov = ~fipsstat+year)
 iplot(lvio_sa,ref.line = -1)
 
-lmur_sa <- feols(lmur ~ sunab(treat_date, year)|fipsstat + year, data = crime_data, 
+lmur_sa <- feols(lmur ~ sunab(treat_date, year)|fipsstat + year, 
+                 data = crime_data %>% filter(treat_date!=1977), 
                  vcov = ~fipsstat+year)
 iplot(lmur_sa,ref.line = -1)
 
-lrap_sa <- feols(lrap ~ sunab(treat_date, year)|fipsstat + year, data = crime_data, 
+lrap_sa <- feols(lrap ~ sunab(treat_date, year)|fipsstat + year, 
+                 data = crime_data %>% filter(treat_date!=1977), 
                  vcov = ~fipsstat+year)
 iplot(lrap_sa,ref.line = -1)
 
-laga_sa <- feols(laga ~ sunab(treat_date, year)|fipsstat + year, data = crime_data, 
+laga_sa <- feols(laga ~ sunab(treat_date, year)|fipsstat + year, data = crime_data %>% 
+                   filter(treat_date!=1977), 
                  vcov = ~fipsstat+year)
 iplot(laga_sa,ref.line = -1)
 
-lrob_sa <- feols(lrob ~ sunab(treat_date, year)|fipsstat + year, data = crime_data, 
+test <- crime_data %>% filter(treat_date!=1977)
+
+lrob_sa <- feols(lrob ~ sunab(treat_date, year)|fipsstat + year, data = 
+                   crime_data %>% filter(treat_date!=1977),
                  vcov = ~fipsstat+year)
 iplot(lrob_sa,ref.line = -1)
 

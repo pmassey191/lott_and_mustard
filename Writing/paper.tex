@@ -54,7 +54,7 @@ Years & States\\
 \bottomrule
 \end{tabular}
 \end{table}
-A right to carry law is simply a law that allows
+A right to carry law is simply a law that allows an individual to carry a concealed handgun outside of ones home. When LM performed their analysis they used a two-way fixed effects model to identify the effect of the passage of these right to carry laws. The regression results from LM indicate that 5 of their variables of interest are significant at the 95\% level (Violent Crime, Murder, Rape, Aggravated Assault, and one at the 90\% level. 
 \section*{Data}
 
 In the original Lott and Mustard paper, the authors used county level crime data for their analysis. For this replication I will be using state level crime data for a variety of reasons. The main reason is that the gun laws passed were ultimately passed at the state level, and there are some concerns that county level data will have much more measurement error than at the state level. I provide a summary of the variables in Table \ref{tab:summary} below. In the table we can see the arrest rate broken down by the type of crime committed. The arrest rate is defined as the number of arrests per offense. I also show the crimes committed per 100,000 people broken down by crime type. 
@@ -102,18 +102,13 @@ Population per square mile & 816 & 355.97 & 1,408.25 \\
 \end{table} 
 
 For each crime there are states for which we have no measurement of arrest rate during various years. This is reflected in Table \ref{tab:summary} under the number of observations column.
-
 \section*{Empirical Model and Estimation}
 \subsection*{Two Way Fixed Effects}
-
 The two way fixed effects model estimated by LM is shown below in equation 1.
-
 \begin{equation}
 Y_{it} = \delta\text{SI}_{it} + \alpha_i + \theta_t + \varepsilon_{it}
 \end{equation}
 
-
->>>>>>> 3602d0e567df0e4a44f3b272a2e3f6d7e5770421
 \newgeometry{margin = .5cm}
     \scriptsize
 \begin{landscape}
