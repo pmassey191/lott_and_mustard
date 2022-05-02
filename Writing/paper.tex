@@ -54,10 +54,10 @@ Years & States\\
 \bottomrule
 \end{tabular}
 \end{table}
-A right to carry law is simply a law that allows an individual to carry a concealed handgun outside of ones home. When LM performed their analysis they used a two-way fixed effects model to identify the effect of the passage of these right to carry laws. The regression results from LM indicate that 5 of their variables of interest are significant at the 95\% level (Violent Crime, Murder, Rape, Aggravated Assault, and one at the 90\% level. 
+A right to carry law is simply a law that allows an individual to carry a concealed handgun outside of ones home. Deterrence is the the theory of utilizing laws and policies to shift individuals away from negative behavior. The laws are intended to create a deterrence for criminals to commit crime when they might reasonably believe an individual is armed. When LM performed their analysis they used a two-way fixed effects model to identify the effect of the passage of these right to carry laws. The regression results from LM indicate that 5 of their variables of interest are significant at the 95\% level (Violent Crime, Murder, Aggravated Assault, Robbery, and Burglary) and two on the cusp of significance at the 95\% level (Rape, and Property Crime). This does not match the results from this replication, although we are supposedly using the same or very similar data. The results from the LM study show that an issuance of a right to carry law resulted in approximately a 5\% drop in violent crime and a rise in property crime of about 2.5\%. The authors attribute this to a substitution effect where property crimes are less likely to have an encounter between individuals and criminals. 
 \section*{Data}
 
-In the original Lott and Mustard paper, the authors used county level crime data for their analysis. For this replication I will be using state level crime data for a variety of reasons. The main reason is that the gun laws passed were ultimately passed at the state level, and there are some concerns that county level data will have much more measurement error than at the state level. I provide a summary of the variables in Table \ref{tab:summary} below. In the table we can see the arrest rate broken down by the type of crime committed. The arrest rate is defined as the number of arrests per offense. I also show the crimes committed per 100,000 people broken down by crime type. 
+In the original Lott and Mustard paper, the authors used county level crime data for their analysis. For this replication I will be using state level crime data for a variety of reasons. The data set I will be using is a panel data set from 1977 to 1992. The main reason is that the gun laws passed were ultimately passed at the state level, and there are some concerns that county level data will have much more measurement error than at the state level. I provide a summary of the variables in Table \ref{tab:summary} below. In the table we can see the arrest rate broken down by the type of crime committed. The arrest rate is defined as the number of arrests per offense. I also show the crimes committed per 100,000 people broken down by crime type. The presence of a right to carry law in a state is identified by a shall issue dummy. The Violent Crime variable represents murder, rape, aggravated assault and robbery. The Property Crime variable represents burglary, larceny, and auto theft.
 \begin{table}[H] \centering 
   \caption{National Sample Summary Statistics} 
   \label{tab:summary} 
@@ -102,13 +102,14 @@ Population per square mile & 816 & 355.97 & 1,408.25 \\
 \end{table} 
 
 For each crime there are states for which we have no measurement of arrest rate during various years. This is reflected in Table \ref{tab:summary} under the number of observations column.
+\newpage
 \section*{Empirical Model and Estimation}
 \subsection*{Two Way Fixed Effects}
 The two way fixed effects model estimated by LM is shown below in equation 1.
 \begin{equation}
 Y_{it} = \delta\text{SI}_{it} + \alpha_i + \theta_t + \varepsilon_{it}
 \end{equation}
-
+$Y_{it}$ is represents the logged crime rate for state $i$ at time $t$. $\alpha_i$ represents state fixed effects, and $\theta_t$ represents time fixed effects. $SI_{it}$ is an indicator for the presence of a shall issue law. With the isolation of state and time fixed effects. $\delta$ represents the impact of a shall issue law. The results from the regression are shown below in Table \ref{tab:twfe} below. Only one crime, Violent Crime, is statistically significant at the 90\% level. I show that right to carry law results in a 7\% drop in violent crime. No other crimes I tested are significantly different from 0. These results are very different than the ones presented in the LM study.
 \newgeometry{margin = .5cm}
     \scriptsize
 \begin{landscape}
@@ -206,61 +207,102 @@ Real per capital income data: &&&&&&&&&\\
    \emph{Fit statistics}\\
    Observations         & 802                           & 806                     & 799                           & 809                          & 808                         & 809                          & 809                     & 809                           & 808\\  
    R$^2$                & 0.97909                       & 0.94701                 & 0.93976                       & 0.96156                      & 0.98311                     & 0.95910                      & 0.95208                 & 0.96166                       & 0.95518\\  
-   Within R$^2$         & 0.40574                       & 0.29930                 & 0.50171                       & 0.44814                      & 0.48069                     & 0.48718                      & 0.46057                 & 0.48721                       & 0.54198\\  
+   Within R$^2$         & 0.40574                       & 0.29930                 & 0.50171                       & 0.44814                      & 0.48069                     & 0.48718                      & 0.46057                 & 0.48721                       & 0.54198$$\\  
    \midrule \midrule
    \multicolumn{10}{l}{\emph{Clustered (state \& year) standard-errors in parentheses}}\\
    \multicolumn{10}{l}{\emph{Signif. Codes: ***: 0.01, **: 0.05, *: 0.1}}\\
 \end{longtable}
 \end{landscape}
 \restoregeometry
+\normalsize
 \subsection*{Bacon Decomposition}
-\begin{table}[h]
+The two way fixed effects model has been a workhorse for empirical economic literature, and for good reason. It is intuitive and is able to isolate out the ATT. However recent literature has shown that there may be some underlying issues with the two way fixed effects model. The issue occurs when there is differential timing of treatment under the two way fixed effects model, in this scenario we are using already treated groups as controls. This is not ideal and can add bias to our estimators. The LM study is an excellent example of differential timing as states were issuing laws at different times as shown in Table \ref{tab:rollout}. It turns out the issue is not plainly differential timing, the issue is that we may have heterogeneous treatment effects. If that is the case then TWFE estimator will be biased. Goodman-Bacon (2021) decompose the weighted 2x2's we see that decomposition in Table \ref{tab:bacon} below. What we see is that we are putting a not insignificant amount of weight on the Later to Earlier treated group, around 2.3\%. The reason this is problematic is that we are using an earlier treated group as a control group for a later treated group. If there is a heterogeneous treatment effect that our TWFE estimator is wrong. It is reasonable to assume that there would be heterogeneous treatment effect in this study, which means we can not rely on the TWFE model to have an unbiased estimator.
+\begin{table}[H]
+\caption{Bacon Decomposition}
 \centering
-  \caption{Bacon Decomposition} 
-  \label{tab:bacon}
+\label{tab:bacon}
 \begin{tabular}[t]{lrrl}
 \toprule
- & Weight & Average Estimate\\
+& Weight & Average Estimate\\
 \midrule
 Violent Crime\\
 \hspace{3mm}Earlier vs Later Treated & 0.0683810 & 0.07561\\
+\hspace{3mm}Later vs Always Treated & 0.1589397 & -0.02812\\
 \hspace{3mm}Later vs Earlier Treated & 0.0233921 & -0.07645\\
+\hspace{3mm}Treated vs Untreated & 0.7492871 & -0.11202\\
 \midrule
 Murder\\
 \hspace{3mm}Earlier vs Later Treated & 0.0683810 & 0.07974\\
+\hspace{3mm}Later vs Always Treated & 0.1589397 & -0.00789\\
 \hspace{3mm}Later vs Earlier Treated & 0.0233921 & 0.00179\\
+\hspace{3mm}Treated vs Untreated & 0.7492871 & -0.05551\\
 \midrule
 Rape\\
 \hspace{3mm}Earlier vs Later Treated & 0.0683810 & -0.03864\\
+\hspace{3mm}Later vs Always Treated & 0.1589397 & -0.19207\\
 \hspace{3mm}Later vs Earlier Treated & 0.0233921 & -0.08243\\
+\hspace{3mm}Treated vs Untreated & 0.7492871 & 0.00406\\
 \midrule
 Aggravated Assault\\
 \hspace{3mm}Earlier vs Later Treated & 0.0683810 & 0.11645\\
+\hspace{3mm}Later vs Always Treated & 0.1589397 & 0.00612\\
 \hspace{3mm}Later vs Earlier Treated & 0.0233921 & -0.14717\\
+\hspace{3mm}Treated vs Untreated & 0.7492871 & -0.18354\\
 \midrule
 Robbery\\
 \hspace{3mm}Earlier vs Later Treated & 0.0683810 & 0.10775\\
+\hspace{3mm}Later vs Always Treated & 0.1589397 & 0.10999\\
 \hspace{3mm}Later vs Earlier Treated & 0.0233921 & 0.08955\\
+\hspace{3mm}Treated vs Untreated & 0.7492871 & -0.01341\\
 \midrule
 Property Crime\\
 \hspace{3mm}Earlier vs Later Treated & 0.0683810 & -0.01052\\
+\hspace{3mm}Later vs Always Treated & 0.1589397 & 0.05383\\
 \hspace{3mm}Later vs Earlier Treated & 0.0233921 & 0.00644\\
+\hspace{3mm}Treated vs Untreated & 0.7492871 & 0.02810\\
 \midrule
 Burglary\\
 \hspace{3mm}Earlier vs Later Treated & 0.0683810 & -0.03397\\
+\hspace{3mm}Later vs Always Treated & 0.1589397 & 0.03046\\
 \hspace{3mm}Later vs Earlier Treated & 0.0233921 & -0.05563\\
+\hspace{3mm}Treated vs Untreated & 0.7492871 & 0.00858\\
 \midrule
 Larceny\\
 \hspace{3mm}Earlier vs Later Treated & 0.0683810 & -0.00608\\
+\hspace{3mm}Later vs Always Treated & 0.1589397 & 0.05034 \\
 \hspace{3mm}Later vs Earlier Treated & 0.0233921 & 0.02077\\
+\hspace{3mm}Treated vs Untreated & 0.7492871 & 0.03746\\
 \midrule
 Auto Theft\\
 \hspace{3mm}Earlier vs Later Treated & 0.0683810 & 0.08313\\
+\hspace{3mm}Later vs Always Treated & 0.1589397 & 0.21147\\
 \hspace{3mm}Later vs Earlier Treated & 0.0233921 & 0.08680\\
+\hspace{3mm}Treated vs Untreated & 0.7492871 & 0.03507\\
 \bottomrule
 \end{tabular}
 \end{table}
+
 \subsection*{Callaway and Sant'anna}
+Callaway and Sant'anna (2020) seek to rectify the issues we see with TWFE models with differential timing. The group time ATT is what CS seek to estimate, this estimator is the ATT for different groups, that are treated at different times. We can estimate the group time ATT using equation 2 below.
+\begin{equation}
+ATT(g,t) = E\left[\left(\frac{G_g}{E[G_g]}-\frac{\frac{\hat{p}(X)C}{1-\hat{p}(X)}}{E\left[\frac{\hat{p}(X)C}{1-\hat{p}(X)}\right]}\right)(Y_t - Y_{g-1})\right]
+\end{equation}
+I estimate the group ATT and summarize the results in Table \ref{tab:cs} below. We see that empirically these treatment effects are much smaller than the estimates I generated from the TWFE model. With the standard errors accounted for none are significantly different from 0. This is huge change from the the TWFE model estimated by LM.
+\begin{table}[H]
+\caption{Callaway Sant'anna Group ATT}
+\centering
+\label{tab:cs}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}[t]{lrrrrrrrrr}
+\toprule
+  & Violent Crime & Murder & Rape & Aggrevated Assualt & Robbery & Property Crime & Burglary & Larceny & Auto Theft\\
+\midrule
+Overall ATT & -0.015 & -0.056 & 0.010 & -0.010 & 0.024 & 0.024 & 0.006 & 0.030 & 0.030\\
+Std. Er. & 0.022 & 0.028 & 0.023 & 0.032 & 0.033 & 0.014 & 0.014 & 0.016 & 0.036\\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
 \subsection*{Sun and Abraham Event Study}
 \section*{Conclusion} 
 
